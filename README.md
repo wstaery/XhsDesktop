@@ -5,6 +5,8 @@
 用 C# WPF + WebView2 把小红书网页版装进一个独立的 Windows 窗口，界面做成 Word 文档样式：外层是 Word 的标题栏、功能区和状态栏，中间文档页面里显示小红书当前内容。
 
 > 直接下载：[Releases](https://github.com/wstaery/XhsDesktop/releases) 中的 `XhsDesktop.exe`，双击即可运行，无需安装 .NET。
+>
+> 同仓库还包含 [百度贴吧桌面版](tiebaDesktop/README.md)：同样的 Word 外壳，加载 `tieba.baidu.com`。
 
 ## 功能
 
@@ -105,6 +107,8 @@ XhsDesktop/
 [中文](#小红书桌面版xhadesktop) · [English](#xiaohongshu-desktop-xhsdesktop)
 
 A standalone Windows app built with C# WPF + WebView2 that wraps the Xiaohongshu (RED) web version. The outer shell mimics Microsoft Word — title bar, ribbon, document page and status bar — while the document page shows the live Xiaohongshu website.
+
+> This repository also contains [Baidu Tieba Desktop](tiebaDesktop/README.md) — the same Word-style shell wrapping `tieba.baidu.com`.
 
 > Download `XhsDesktop.exe` from [Releases](https://github.com/wstaery/XhsDesktop/releases) and run it directly. No .NET installation required.
 
