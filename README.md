@@ -6,7 +6,7 @@
 
 > 直接下载：[Releases](https://github.com/wstaery/XhsDesktop/releases) 中的 `XhsDesktop.exe`，双击即可运行，无需安装 .NET。
 >
-> 同仓库还包含 [百度贴吧桌面版](tiebaDesktop/README.md)：同样的 Word 外壳，加载 `tieba.baidu.com`。
+> 百度贴吧版已拆分到独立仓库：[TiebaDesktop](https://github.com/wstaery/TiebaDesktop)。
 
 ## 功能
 
@@ -108,7 +108,7 @@ XhsDesktop/
 
 A standalone Windows app built with C# WPF + WebView2 that wraps the Xiaohongshu (RED) web version. The outer shell mimics Microsoft Word — title bar, ribbon, document page and status bar — while the document page shows the live Xiaohongshu website.
 
-> This repository also contains [Baidu Tieba Desktop](tiebaDesktop/README.md) — the same Word-style shell wrapping `tieba.baidu.com`.
+> Baidu Tieba Desktop now lives in its own repository: [TiebaDesktop](https://github.com/wstaery/TiebaDesktop).
 
 > Download `XhsDesktop.exe` from [Releases](https://github.com/wstaery/XhsDesktop/releases) and run it directly. No .NET installation required.
 
