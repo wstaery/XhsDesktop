@@ -1,6 +1,10 @@
 # 小红书桌面版（XhsDesktop）
 
+[中文](#小红书桌面版xhadesktop) · [English](#xiaohongshu-desktop-xhsdesktop)
+
 用 C# WPF + WebView2 把小红书网页版装进一个独立的 Windows 窗口，界面做成 Word 文档样式：外层是 Word 的标题栏、功能区和状态栏，中间文档页面里显示小红书当前内容。
+
+> 直接下载：[Releases](https://github.com/wstaery/XhsDesktop/releases) 中的 `XhsDesktop.exe`，双击即可运行，无需安装 .NET。
 
 ## 功能
 
@@ -23,7 +27,7 @@
 ## 编译运行
 
 ```powershell
-git clone <仓库地址>
+git clone https://github.com/wstaery/XhsDesktop.git
 cd XhsDesktop
 
 # 调试运行
@@ -93,3 +97,105 @@ XhsDesktop/
 - 本项目只是网页容器，所有内容与登录均由小红书官方网页提供，与官方无关联
 - 若站点要求滑块验证，需在窗口内手动完成
 - 站点前端改版可能导致广告拦截规则失效，可在 `settings.json` 中补充
+
+---
+
+# Xiaohongshu Desktop (XhsDesktop)
+
+[中文](#小红书桌面版xhadesktop) · [English](#xiaohongshu-desktop-xhsdesktop)
+
+A standalone Windows app built with C# WPF + WebView2 that wraps the Xiaohongshu (RED) web version. The outer shell mimics Microsoft Word — title bar, ribbon, document page and status bar — while the document page shows the live Xiaohongshu website.
+
+> Download `XhsDesktop.exe` from [Releases](https://github.com/wstaery/XhsDesktop/releases) and run it directly. No .NET installation required.
+
+## Features
+
+- Standalone resizable Windows window, maximize support, multi-monitor and high-DPI aware
+- Loads `www.xiaohongshu.com` directly; QR-code login with persisted cookies (stay signed in after restart)
+- Word-style shell: custom title bar, eight ribbon tabs, document page, status bar
+- Remembers window size and position between launches
+- Always-on-top toggle, close-to-tray with tray menu (show / exit)
+- Request-level promo/ad blocking with a one-click toggle
+- Single-instance: launching again activates the existing window
+- In-site links open in the current window; external links open in the system browser
+- Downloads use the standard Save As dialog
+
+## Requirements
+
+- Windows 10 / 11 x64
+- Microsoft Edge WebView2 Runtime (usually preinstalled on Windows 10/11)
+- For development: .NET 9 SDK
+
+## Build and run
+
+```powershell
+git clone https://github.com/wstaery/XhsDesktop.git
+cd XhsDesktop
+
+# Run in debug
+dotnet run
+
+# Build
+dotnet build -c Debug
+```
+
+## Publish a standalone exe
+
+```powershell
+dotnet publish -c Release -r win-x64 --self-contained true `
+  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+  -p:EnableCompressionInSingleFile=true -o publish
+```
+
+The output is `publish\XhsDesktop.exe` — a self-contained single file. Double-click to run; the first launch takes a few seconds while it self-extracts.
+
+## Usage
+
+- Login: click “登录” at the top-right of the page, then scan the QR code with the mobile app
+- Navigation: 后退 / 前进 / 刷新 / 首页 (Back / Forward / Refresh / Home) under ribbon “开始 → 浏览”
+- Window options: “置顶” (Always on top), “拦截” (Ad blocking), “托盘” (Tray) at the right side of the status bar
+- Closing the window (×) hides it to the tray; use the tray icon’s “退出” to quit completely
+- Drag the title bar to move, double-click it to maximize/restore, drag edges to resize
+
+## Configuration
+
+Settings file: `%APPDATA%\XhsDesktop\settings.json`
+
+```json
+{
+  "window": { "left": 100, "top": 80, "width": 1200, "height": 800, "maximized": false },
+  "alwaysOnTop": false,
+  "blockAds": true,
+  "blockedUrlSubstrings": [
+    "ads.xiaohongshu.com",
+    "ad.xiaohongshu.com",
+    "advertise",
+    "cm.xiaohongshu.com",
+    "/api/sns/web/v1/ad"
+  ],
+  "extraCss": ""
+}
+```
+
+- `blockedUrlSubstrings`: requests containing any of these substrings are blocked; add or remove entries as needed
+- `extraCss`: when non-empty, injected into the page to hide leftover ad slots
+
+Login data: `%LOCALAPPDATA%\XhsDesktop\UserData` (WebView2 user data folder)
+
+## Project structure
+
+```
+XhsDesktop/
+├─ App.xaml / App.xaml.cs          Single instance and startup
+├─ MainWindow.xaml / .cs           Word shell and WebView2 host
+├─ Services/AppSettings.cs         Settings and window geometry persistence
+├─ Services/AdBlocker.cs           Request-level ad blocking
+├─ Assets/app.ico                  Application icon
+└─ app.manifest                    PerMonitorV2 DPI declaration
+```
+
+## Notes
+
+- This project is only a web container. All content and login are provided by the official Xiaohongshu website; it is not affiliated with Xiaohongshu
+- If the site presents a slider CAPTCHA, solve it manually in the window
+- Site redesigns may break the ad-blocking rules; extend them in `settings.json`
